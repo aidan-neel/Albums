@@ -1,59 +1,28 @@
 <script lang="ts">
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcomeFallback from '$lib/images/svelte-welcome.png';
+	import Player from "$lib/components/Player.svelte";
+	import { spotify } from "$lib/spotify.svelte";
+	import { getContrastTailwindColor } from "$lib/colors";
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcomeFallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+{#if spotify.sdk?.getAccessToken() !== null}
+	{#await spotify.sdk?.player.getCurrentlyPlayingTrack()}
+	{:then track} 
+		<div class="flex flex-col gap-3 h-full w-full">
+			<div class="rounded-lg bg-red-900 flex items-center justify-center h-full overflow-hidden relative w-full">
+				<img src={track?.item.album.images[0].url} class="size-96 shadow-2xl rounded-md object-cover z-2" />
+			</div>
+			<div class="max-w-[40rem]  flex flex-row gap-4 rounded-lg text-white z-50">				
+				{console.log(track)}
+				<img src={track?.item.album.images[0].url} class="size-20 rounded-md object-cover" />
+				<header class="flex flex-col">
+					<h1 class="font-bold">
+						{track?.item.name}
+					</h1>
+					<p class="text-white/70">
+						{track?.item.artists[0].name}
+					</p>
+				</header>
+			</div>	
+		</div>
+	{/await}
+{/if}
