@@ -20,7 +20,7 @@
 </script>
 
 {#if spotify.sdk?.getAccessToken() === null}
-	<div in:fade={{ duration: 150, easing: cubicOut }} class="bg-black/40 h-screen w-screen fixed gap-4 z-50 flex items-center justify-center flex-col">
+	<div in:fade={{ duration: 150, easing: cubicOut }} class="bg-black/60 h-screen w-screen fixed gap-4 z-50 flex items-center justify-center flex-col">
 		<div in:fly={{ duration: 400, y: 10 }} class="max-w-[40rem] flex flex-col gap-6">
 			<header class="flex flex-col gap-4">
 				<h1 class="text-white text-3xl font-medium">
@@ -60,7 +60,7 @@
 {/if}
 
 <div class="app">
-	<main class="bg-neutral-950 p-3 text-white h-screen w-screen flex items-center justify-center">
+	<main class="bg-neutral-950 p-5 text-white h-screen w-screen flex items-center justify-center">
 		{@render children()}
 	</main>
 </div>

@@ -5,6 +5,23 @@
 	font-family: "Nunito";
 }
 
+.polaroid {
+  filter: contrast(1.15) brightness(1.1) saturate(1.25) sepia(0.1);
+}
+
+@keyframes idleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-1000px) scale(1.02);
+  }
+}
+
+.idle-float {
+  animation: idleFloat 80s ease-in-out infinite;
+}
+
 @keyframes noiseShift {
   0% {
     background-position: 0 0;
