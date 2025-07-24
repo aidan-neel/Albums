@@ -1,4 +1,4 @@
-import { SpotifyApi } from "@spotify/web-api-ts-sdk";
+import { SpotifyApi, type PlaybackState } from "@spotify/web-api-ts-sdk";
 
 export const REDIRECT_URI = "http://127.0.0.1:5173/callback"
 export const CLIENT_ID = "527b8735a7f54a7b8436b64d5c1bdfa3"
@@ -34,8 +34,10 @@ export const SCOPES = [
 
 type Spotify = {
   sdk?: SpotifyApi,
+  playback?: PlaybackState,
 }
 
 export const spotify = $state<Spotify>({
   sdk: SpotifyApi.withUserAuthorization(CLIENT_ID, REDIRECT_URI, SCOPES),
+  playback: undefined
 })

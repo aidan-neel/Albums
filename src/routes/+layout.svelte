@@ -6,16 +6,18 @@
 	import { cubicOut } from 'svelte/easing';
 	import { SpotifyApi } from '@spotify/web-api-ts-sdk';
 	import Player from '$lib/components/Player.svelte';
+	import { user } from "$lib/user.svelte";
 
 	let { children } = $props();
 
 	let isOpen = $state<boolean>(false);
-	
 
-	onMount(() => {
-		setTimeout(() => {
-			isOpen = true;
-		}, 300);
+	$effect(() => {
+		if(user.profile === undefined) {
+			spotify.sdk?.currentUser.profile().then((data) => {
+				user.profile = data;
+			})
+		}
 	})
 </script>
 
